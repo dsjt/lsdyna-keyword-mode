@@ -1,23 +1,36 @@
 * Major-mode for lsdyna keyword mode
 
 * Install
-==========
-To install this library, save this file to a directory in your
-`load-path' (you can view the current `load-path' using "C-h v
-load-path RET" within Emacs), then add the following line to your
-.emacs startup file:
+
+To install this elisp, save it to a directory in your load-path, and then add
+the following  to your .emacs file:
 
 #+BEGIN_SRC elisp
 (require 'lsdyna-keyword-mode)
 (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsdyna-keyword-mode))
 #+END_SRC
 
-If you want to use hide-show.el in keyword files, add the following.
+If you want to use hideshow.el in lsdyna keyword files, add the following.
 
 #+BEGIN_SRC elisp
 (add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
 (add-to-list 'hs-special-modes-alist lsdyna-keyword-mode-hs-special)
 #+END_SRC
+
+* Features
+lsdyna-keyword-mode.el provides following commands.
+
+- beginning-of-defun/end-of-defun
+- forward-defun/backward-defun
+- mark-defun
+
+`Defun' means a card definition in a keyword file in this context.
+
+Also, you can use imenu and hs-minor-mode in a keyword file.
+
+* Someday
+- Sorting by pid, cid, sid, e.t.c..
+- Adding comments.
 
 * License
 GPL
