@@ -42,7 +42,7 @@
 ;;    (require 'lsdyna-keyword-mode)
 ;;    (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsdyna-keyword-mode))
 ;;
-;; If you want use hide-show.el in keyword files, add the following.
+;; If you want to use hide-show.el in keyword files, add the following.
 ;;
 ;;    (add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
 ;;    (add-to-list 'hs-special-modes-alist lsdyna-keyword-mode-hs-special)
