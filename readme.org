@@ -18,10 +18,10 @@ If you want to use hideshow.el in lsdyna keyword files, add the following.
 #+END_SRC
 
 * Features
-lsdyna-keyword-mode.el provides following commands.
+Lsdyna-keyword-mode.el provides following commands.
 
-- beginning-of-defun/end-of-defun
-- forward-defun/backward-defun
+- beginning/end-of-defun
+- forward/backward-defun
 - mark-defun
 
 `Defun' means a card definition in a keyword file in this context.
