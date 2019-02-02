@@ -1,0 +1,23 @@
+* Major-mode for lsdyna keyword mode
+
+* Install
+==========
+To install this library, save this file to a directory in your
+`load-path' (you can view the current `load-path' using "C-h v
+load-path RET" within Emacs), then add the following line to your
+.emacs startup file:
+
+#+BEGIN_SRC elisp
+(require 'lsdyna-keyword-mode)
+(add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsdyna-keyword-mode))
+#+END_SRC
+
+If you want to use hide-show.el in keyword files, add the following.
+
+#+BEGIN_SRC elisp
+(add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-to-list 'hs-special-modes-alist lsdyna-keyword-mode-hs-special)
+#+END_SRC
+
+* License
+GPL
