@@ -2,10 +2,9 @@
 
 ;; Author: ISHIDA Tatsuhiro
 ;; Version: version 0.1
-;; Package-Requires: (dependencies)
+;; Package-Requires:
 ;; Homepage: https://github.com/dsjt/lsdyna-keyword-mode
 ;; Keywords:
-
 
 ;; This file is not part of GNU Emacs
 
@@ -47,12 +46,19 @@
 ;;    (add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
 ;;    (add-to-list 'hs-special-modes-alist lsdyna-keyword-mode-hs-special)
 
+
 ;;; Code:
+
+
+;;; Constants =================================================================
 
 (defconst lsdyna-keyword-mode-version "0.1")
 
 (defconst lsdyna-keyword-mode-keywords-regexp
-  (regexp-opt '("*KEYWORD" "*END")))
+  (regexp-opt '("*KEYWORD" "*end")))
+
+
+;;; Global Variables ==========================================================
 
 (defvar lsdyna-keyword-mode-map
   (let ((map (make-sparse-keymap)))
@@ -81,12 +87,13 @@
 
 (defvar lsdyna-keyword-imenu-generic-expression
   '(("CARD" "^\\(\\*.+\\)$" 1)
-    ("BLOCK" "^\\$+-+\\s-*\\(.+\\)\\s--*\\$*$" 1)
-    ))
+    ("BLOCK" "^\\$+-+\\s-*\\(.+\\)\\s--*\\$*$" 1)))
 
 (defvar lsdyna-keyword-mode-outline-regexp
   "\\*.+$")
 
+
+;;; Functions ==========================================================
 
 (defun lsdyna-keyword-mode-beginning-of-block ()
   (interactive)
@@ -95,7 +102,7 @@
     (goto-char (point-min))))
 
 (defvar lsdyna-keyword-mode-regex-defun
-  "^\\(?:\\*.*\\)")
+  "^\\*.*")
 
 ;;;###autoload
 (defun lsdyna-keyword-mode-beginning-of-defun (&optional arg)
@@ -176,6 +183,7 @@
   (setq-local paragraph-separate "^\\$-")
   (use-local-map lsdyna-keyword-mode-map))
 
+
 (provide 'lsdyna-keyword-mode)
 
 ;;; lsdyna-keyword-mode.el ends here
