@@ -29,8 +29,7 @@ Lsdyna-keyword-mode.el provides following commands.
 Also, you can use imenu and hs-minor-mode in a keyword file.
 
 * Someday
-- Sorting by pid, cid, sid, e.t.c..
-- Adding comments.
+- Feature for sorting by pid, cid, sid, e.t.c..
 
 * License
 GPL
