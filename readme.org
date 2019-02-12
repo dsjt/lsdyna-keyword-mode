@@ -1,4 +1,4 @@
-* Major-mode for lsdyna keyword mode
+* Major-mode for lsdyna keyword files
 
 * Install
 
@@ -26,10 +26,12 @@ Lsdyna-keyword-mode.el provides following commands.
 
 `Defun' means a card definition in a keyword file in this context.
 
-Also, you can use imenu and hs-minor-mode in a keyword file.
+Also you can use `imenu' and `hideshow' in a keyword file.
 
 * Someday
 - Feature for sorting by pid, cid, sid, e.t.c..
-
+- Feature for alignment.
+- Feature for moving by pid, cid, sid, e.t.c..
+- warning when over 80 columns.
 * License
 GPL
