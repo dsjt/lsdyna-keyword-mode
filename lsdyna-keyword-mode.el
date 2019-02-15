@@ -49,6 +49,9 @@
 
 ;;; Code:
 
+(require 's)
+(eval-when-compile (require 'cl))
+
 
 ;;; Constants =================================================================
 
@@ -59,6 +62,10 @@
 
 
 ;;; Global Variables ==========================================================
+
+(defface lsdyna-keyword-mode-bg
+  '((t (:underline t)))
+  "background color 1 for lsdyna keyword mode.")
 
 (defvar lsdyna-keyword-mode-map
   (let ((map (make-sparse-keymap)))
@@ -80,10 +87,17 @@
 (defvar lsdyna-keyword-mode-hs-special
   '(lsdyna-keyword-mode "\\*" "" "\\$" lsdyna-keyword-mode-end-of-defun nil))
 
+(defvar lsdyna-keyword-mode-value-regexp
+  ".\\([ 0-9a-zA-Z.-]\\{9\\}\\)")
+
 (defvar lsdyna-keyword-mode-font-lock-keywords
-  `(,lsdyna-keyword-mode-keywords-regexp
+  `((,lsdyna-keyword-mode-keywords-regexp . font-lock-constant-face)
     ("\\*.+\n" . font-lock-function-name-face)
-    "Keyword highlighting specification for `lsdyna-keyword-mode'."))
+    ,@(loop for i from 1 to 8
+            collect `(,(s-concat "^" (s-repeat i lsdyna-keyword-mode-value-regexp))
+                      . ,(loop for j from 1 to i
+                               collect `(,j 'lsdyna-keyword-mode-bg)))))
+  "Keyword highlighting specification for `lsdyna-keyword-mode'.")
 
 (defvar lsdyna-keyword-imenu-generic-expression
   '(("CARD" "^\\(\\*.+\\)$" 1)
