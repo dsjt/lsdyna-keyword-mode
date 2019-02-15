@@ -195,7 +195,7 @@
               lsdyna-keyword-imenu-generic-expression)
   (setq-local outline-regexp lsky-outline-regexp)
   (setq-local paragraph-start "^\\*")
-  (setq-local paragraph-separate "^\\*")
+  (setq-local paragraph-separate "^\\$$")
   (use-local-map lsky-map))
 
 
