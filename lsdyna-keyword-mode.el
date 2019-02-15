@@ -88,11 +88,12 @@
   '(lsdyna-keyword-mode "\\*" "" "\\$" lsky-end-of-defun nil))
 
 (defvar lsky-value-regexp
-  ".\\([ 0-9a-zA-Z.-]\\{9\\}\\)")
+  ".\\([ 0-9a-zA-Z.-\\&]\\{9\\}\\)")
 
 (defvar lsky-font-lock-keywords
   `((,lsky-keywords-regexp . font-lock-constant-face)
     ("\\*.+\n" . font-lock-function-name-face)
+    ("^[^\\& ]\\{10\\}.*" . font-lock-defaults)
     ,@(loop for i from 1 to 8
             collect `(,(s-concat "^" (s-repeat i lsky-value-regexp))
                       . ,(loop for j from 1 to i
