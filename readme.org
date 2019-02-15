@@ -26,7 +26,10 @@ Lsdyna-keyword-mode.el provides following commands.
 
 `Defun' means a card definition in a keyword file in this context.
 
-Also you can use `imenu' and `hideshow' in a keyword file.
+Also you can use following features.
+- `imenu'
+- `hideshow'
+- underline at each 10 columns (not exactly)
 
 * Someday
 - Feature for sorting by pid, cid, sid, e.t.c..
