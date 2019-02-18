@@ -190,6 +190,7 @@
   :syntax-table lsky-syntax-table
   (setq-local comment-start "$")
   (setq-local comment-start-skip "$+\\s-*")
+  (setq-local comment-style 'plain)
   (setq-local font-lock-defaults '(lsky-font-lock-keywords nil nil))
   (setq-local imenu-generic-expression
               lsdyna-keyword-imenu-generic-expression)
