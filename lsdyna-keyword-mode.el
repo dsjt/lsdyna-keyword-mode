@@ -88,7 +88,7 @@
   '(lsdyna-keyword-mode "\\*" "" "\\$" lsky-end-of-defun nil))
 
 (defvar lsky-value-regexp
-  ".\\([ 0-9a-zA-Z.\\&-]\\{9\\}\\)")
+  ".\\([ 0-9a-zA-Z.\\&+-]\\{9\\}\\)")
 
 (defvar lsky-font-lock-keywords
   `((,lsky-keywords-regexp . font-lock-constant-face)
