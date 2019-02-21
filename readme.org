@@ -31,6 +31,7 @@ Also you can use following features.
 - `hideshow'
 - underline at each 10 columns (not exactly)
 
+[[file:img/Screenshot%20from%202019-02-21%2020-28-24.png]]
 * Someday
 - Feature for sorting by pid, cid, sid, e.t.c..
 - Feature for alignment.
