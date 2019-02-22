@@ -1,9 +1,9 @@
-;;; lsky-mode.el --- summary -*- lexical-binding: t -*-
+;;; lskey-mode.el --- summary -*- lexical-binding: t -*-
 
 ;; Author: ISHIDA Tatsuhiro
 ;; Version: version 0.1
 ;; Package-Requires:
-;; Homepage: https://github.com/dsjt/lsky-mode
+;; Homepage: https://github.com/dsjt/lskey-mode
 ;; Keywords:
 
 ;; This file is not part of GNU Emacs
@@ -27,7 +27,7 @@
 ;; Overview
 ;; ========
 ;;
-;; This library provides major mode `lsky-mode' which helps
+;; This library provides major mode `lskey-mode' which helps
 ;; you edit ls-dyna keyword files.
 ;;
 ;;
@@ -38,13 +38,13 @@
 ;; load-path RET" within Emacs), then add the following line to your
 ;; .emacs startup file:
 ;;
-;;    (require 'lsky-mode)
-;;    (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsky-mode))
+;;    (require 'lskey-mode)
+;;    (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lskey-mode))
 ;;
 ;; If you want to use hide-show.el in keyword files, add the following.
 ;;
-;;    (add-hook 'lsky-mode-hook '(lambda () (hs-minor-mode 1)))
-;;    (add-to-list 'hs-special-modes-alist lsky-hs-special)
+;;    (add-hook 'lskey-mode-hook '(lambda () (hs-minor-mode 1)))
+;;    (add-to-list 'hs-special-modes-alist lskey-hs-special)
 
 
 ;;; Code:
@@ -55,151 +55,151 @@
 
 ;;; Constants =================================================================
 
-(defconst lsky-version "0.1")
+(defconst lskey-version "0.1")
 
-(defconst lsky-keywords-regexp
+(defconst lskey-keywords-regexp
   (regexp-opt '("*KEYWORD" "*end")))
 
 
 ;;; Global Variables ==========================================================
 
-(defface lsky-bg
+(defface lskey-bg
   '((t (:underline t)))
   "background color 1 for lsdyna keyword mode.")
 
-(defvar lsky-map
+(defvar lskey-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-M-a") 'lsky-beginning-of-defun)
-    (define-key map (kbd "C-M-e") 'lsky-end-of-defun)
-    (define-key map (kbd "C-M-f") 'lsky-forward-defun)
-    (define-key map (kbd "C-M-b") 'lsky-backward-defun)
-    (define-key map (kbd "C-M-h") 'lsky-mark-defun)
+    (define-key map (kbd "C-M-a") 'lskey-beginning-of-defun)
+    (define-key map (kbd "C-M-e") 'lskey-end-of-defun)
+    (define-key map (kbd "C-M-f") 'lskey-forward-defun)
+    (define-key map (kbd "C-M-b") 'lskey-backward-defun)
+    (define-key map (kbd "C-M-h") 'lskey-mark-defun)
     map)
-  "Keymap for `lsky-mode'.")
+  "Keymap for `lskey-mode'.")
 
-(defvar lsky-syntax-table
+(defvar lskey-syntax-table
   (let ((st (make-syntax-table)))
     (modify-syntax-entry ?$ "<" st)
     (modify-syntax-entry ?\n ">" st)
     st)
-  "Syntax table for `lsky-mode'.")
+  "Syntax table for `lskey-mode'.")
 
-(defvar lsky-hs-special
-  '(lsky-mode "\\*" "" "\\$" lsky-end-of-defun nil))
+(defvar lskey-hs-special
+  '(lskey-mode "\\*" "" "\\$" lskey-end-of-defun nil))
 
-(defvar lsky-value-regexp
+(defvar lskey-value-regexp
   ".\\([ 0-9a-zA-Z.\\&+-]\\{9\\}\\)")
 
-(defvar lsky-font-lock-keywords
-  `((,lsky-keywords-regexp . font-lock-constant-face)
+(defvar lskey-font-lock-keywords
+  `((,lskey-keywords-regexp . font-lock-constant-face)
     ("\\*.+\n" . font-lock-function-name-face)
     ("^[^\\& ]\\{11\\}.*" . font-lock-defaults)
     ,@(loop for i from 1 to 8
-            collect `(,(s-concat "^" (s-repeat i lsky-value-regexp))
+            collect `(,(s-concat "^" (s-repeat i lskey-value-regexp))
                       . ,(loop for j from 1 to i
-                               collect `(,j 'lsky-bg)))))
-  "Keyword highlighting specification for `lsky-mode'.")
+                               collect `(,j 'lskey-bg)))))
+  "Keyword highlighting specification for `lskey-mode'.")
 
-(defvar lsky-imenu-generic-expression
+(defvar lskey-imenu-generic-expression
   '(("CARD" "^\\(\\*.+\\)$" 1)
     ("BLOCK" "^\\$+-+\\s-*\\(.+\\)\\s--*\\$*$" 1)))
 
-(defvar lsky-outline-regexp
+(defvar lskey-outline-regexp
   "\\*.+$")
 
 
 ;;; Functions ==========================================================
 
-(defun lsky-beginning-of-block ()
+(defun lskey-beginning-of-block ()
   (interactive)
   (if (re-search-backward markdown-regex-block-separator nil t)
       (goto-char (or (match-end 2) (match-end 0)))
     (goto-char (point-min))))
 
-(defvar lsky-regex-defun
+(defvar lskey-regex-defun
   "^\\*.*")
 
 ;;;###autoload
-(defun lsky-beginning-of-defun (&optional arg)
+(defun lskey-beginning-of-defun (&optional arg)
   "`beginning-of-defun-function' for lsdyna keyword files"
   (interactive "P")
   (or arg (setq arg 1))
-  (if (looking-at lsky-regex-defun)
+  (if (looking-at lskey-regex-defun)
       (beginning-of-line)
-    (or (re-search-backward lsky-regex-defun nil nil arg)
+    (or (re-search-backward lskey-regex-defun nil nil arg)
         (goto-char (point-min)))))
 
 ;;;###autoload
-(defun lsky-end-of-defun (&optional arg)
+(defun lskey-end-of-defun (&optional arg)
   "`end-of-defun-function' for lsdyna keyword files."
   (interactive "P")
   (or arg (setq arg 1))
-  (when (looking-at lsky-regex-defun)
+  (when (looking-at lskey-regex-defun)
     (goto-char (match-beginning 0))
     (forward-char 1))
-  (if (re-search-forward lsky-regex-defun nil nil arg)
+  (if (re-search-forward lskey-regex-defun nil nil arg)
       (goto-char (match-beginning 0))
     (goto-char (point-max)))
   (backward-char 1)
   (point))
 
 ;;;###autoload
-(defun lsky-forward-defun (&optional arg)
+(defun lskey-forward-defun (&optional arg)
   (interactive "P")
   (or arg (setq arg 1))
-  (when (looking-at lsky-regex-defun)
+  (when (looking-at lskey-regex-defun)
     (goto-char (match-beginning 0))
     (forward-char 1))
-  (progn (re-search-forward lsky-regex-defun nil nil arg)
+  (progn (re-search-forward lskey-regex-defun nil nil arg)
          (beginning-of-line)))
 
 ;;;###autoload
-(defun lsky-backward-defun (&optional arg)
+(defun lskey-backward-defun (&optional arg)
   (interactive "P")
   (or arg (setq arg 1))
-  (or (re-search-backward lsky-regex-defun nil nil arg)
+  (or (re-search-backward lskey-regex-defun nil nil arg)
       (goto-char (point-min))))
 
 ;;;###autoload
-(defun lsky-0padding-and-yank (&optional arg)
+(defun lskey-0padding-and-yank (&optional arg)
   (interactive "P")
   (or arg (setq arg 10))
   (insert (format (format "%%0%dd" 10) (string-to-number (car kill-ring)))))
 
 ;;;###autoload
-(defun lsky-padding-and-yank (&optional arg)
+(defun lskey-padding-and-yank (&optional arg)
   (interactive "P")
   (or arg (setq arg 10))
   (insert (format (format "%%%dd" 10) (string-to-number (car kill-ring)))))
 
 ;;;###autoload
-(defun lsky-mark-defun (&optional arg)
+(defun lskey-mark-defun (&optional arg)
   (interactive "p")
   (or arg (setq arg 1))
   (and (< arg 0) (setq arg (- arg 1)))
-  (when (not (equal last-command 'lsky-mark-defun))
-    (lsky-beginning-of-defun)
+  (when (not (equal last-command 'lskey-mark-defun))
+    (lskey-beginning-of-defun)
     (set-mark (point)))
-  (lsky-forward-defun arg))
+  (lskey-forward-defun arg))
 
 ;;;###autoload
-(define-derived-mode lsky-mode
+(define-derived-mode lskey-mode
   nil
   "LSKey"
   "Major mode which helps you edit ls-dyna keyword files."
-  :syntax-table lsky-syntax-table
+  :syntax-table lskey-syntax-table
   (setq-local comment-start "$")
   (setq-local comment-start-skip "$+\\s-*")
   (setq-local comment-style 'plain)
-  (setq-local font-lock-defaults '(lsky-font-lock-keywords nil nil))
+  (setq-local font-lock-defaults '(lskey-font-lock-keywords nil nil))
   (setq-local imenu-generic-expression
-              lsky-imenu-generic-expression)
-  (setq-local outline-regexp lsky-outline-regexp)
+              lskey-imenu-generic-expression)
+  (setq-local outline-regexp lskey-outline-regexp)
   (setq-local paragraph-start "^\\*")
   (setq-local paragraph-separate "^\\$$")
-  (use-local-map lsky-map))
+  (use-local-map lskey-map))
 
 
-(provide 'lsky-mode)
+(provide 'lskey-mode)
 
-;;; lsky-mode.el ends here
+;;; lskey-mode.el ends here
