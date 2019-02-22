@@ -1,9 +1,9 @@
-;;; lsdyna-keyword-mode.el --- summary -*- lexical-binding: t -*-
+;;; lsky-mode.el --- summary -*- lexical-binding: t -*-
 
 ;; Author: ISHIDA Tatsuhiro
 ;; Version: version 0.1
 ;; Package-Requires:
-;; Homepage: https://github.com/dsjt/lsdyna-keyword-mode
+;; Homepage: https://github.com/dsjt/lsky-mode
 ;; Keywords:
 
 ;; This file is not part of GNU Emacs
@@ -27,7 +27,7 @@
 ;; Overview
 ;; ========
 ;;
-;; This library provides major mode `lsdyna-keyword-mode' which helps
+;; This library provides major mode `lsky-mode' which helps
 ;; you edit ls-dyna keyword files.
 ;;
 ;;
@@ -38,12 +38,12 @@
 ;; load-path RET" within Emacs), then add the following line to your
 ;; .emacs startup file:
 ;;
-;;    (require 'lsdyna-keyword-mode)
-;;    (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsdyna-keyword-mode))
+;;    (require 'lsky-mode)
+;;    (add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsky-mode))
 ;;
 ;; If you want to use hide-show.el in keyword files, add the following.
 ;;
-;;    (add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
+;;    (add-hook 'lsky-mode-hook '(lambda () (hs-minor-mode 1)))
 ;;    (add-to-list 'hs-special-modes-alist lsky-hs-special)
 
 
@@ -75,17 +75,17 @@
     (define-key map (kbd "C-M-b") 'lsky-backward-defun)
     (define-key map (kbd "C-M-h") 'lsky-mark-defun)
     map)
-  "Keymap for `lsdyna-keyword-mode'.")
+  "Keymap for `lsky-mode'.")
 
 (defvar lsky-syntax-table
   (let ((st (make-syntax-table)))
     (modify-syntax-entry ?$ "<" st)
     (modify-syntax-entry ?\n ">" st)
     st)
-  "Syntax table for `lsdyna-keyword-mode'.")
+  "Syntax table for `lsky-mode'.")
 
 (defvar lsky-hs-special
-  '(lsdyna-keyword-mode "\\*" "" "\\$" lsky-end-of-defun nil))
+  '(lsky-mode "\\*" "" "\\$" lsky-end-of-defun nil))
 
 (defvar lsky-value-regexp
   ".\\([ 0-9a-zA-Z.\\&+-]\\{9\\}\\)")
@@ -98,9 +98,9 @@
             collect `(,(s-concat "^" (s-repeat i lsky-value-regexp))
                       . ,(loop for j from 1 to i
                                collect `(,j 'lsky-bg)))))
-  "Keyword highlighting specification for `lsdyna-keyword-mode'.")
+  "Keyword highlighting specification for `lsky-mode'.")
 
-(defvar lsdyna-keyword-imenu-generic-expression
+(defvar lsky-imenu-generic-expression
   '(("CARD" "^\\(\\*.+\\)$" 1)
     ("BLOCK" "^\\$+-+\\s-*\\(.+\\)\\s--*\\$*$" 1)))
 
@@ -183,7 +183,7 @@
   (lsky-forward-defun arg))
 
 ;;;###autoload
-(define-derived-mode lsdyna-keyword-mode
+(define-derived-mode lsky-mode
   nil
   "LSKey"
   "Major mode which helps you edit ls-dyna keyword files."
@@ -193,13 +193,13 @@
   (setq-local comment-style 'plain)
   (setq-local font-lock-defaults '(lsky-font-lock-keywords nil nil))
   (setq-local imenu-generic-expression
-              lsdyna-keyword-imenu-generic-expression)
+              lsky-imenu-generic-expression)
   (setq-local outline-regexp lsky-outline-regexp)
   (setq-local paragraph-start "^\\*")
   (setq-local paragraph-separate "^\\$$")
   (use-local-map lsky-map))
 
 
-(provide 'lsdyna-keyword-mode)
+(provide 'lsky-mode)
 
-;;; lsdyna-keyword-mode.el ends here
+;;; lsky-mode.el ends here
