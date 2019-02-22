@@ -1,24 +1,24 @@
 * Major-mode for lsdyna keyword files
 
-* Install
+** Install
 
 To install this elisp, save it to a directory in your load-path, and then add
 the following  to your .emacs file:
 
 #+BEGIN_SRC elisp
-(require 'lsdyna-keyword-mode)
-(add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lsdyna-keyword-mode))
+(require 'lskey-mode)
+(add-to-list 'auto-mode-alist '("\\.k$\\|\\.key$" . lskey-mode))
 #+END_SRC
 
 If you want to use hideshow.el in lsdyna keyword files, add the following.
 
 #+BEGIN_SRC elisp
-(add-hook 'lsdyna-keyword-mode-hook '(lambda () (hs-minor-mode 1)))
-(add-to-list 'hs-special-modes-alist lsdyna-keyword-mode-hs-special)
+(add-hook 'lskey-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-to-list 'hs-special-modes-alist lskey-mode-hs-special)
 #+END_SRC
 
-* Features
-Lsdyna-keyword-mode.el provides following commands.
+** Features
+lskey-mode.el provides following commands.
 
 - beginning/end-of-defun
 - forward/backward-defun
@@ -32,10 +32,10 @@ Also you can use following features.
 - underline at each 10 columns (not exactly)
 
 [[file:img/Screenshot%20from%202019-02-21%2020-28-24.png]]
-* Someday
+** Someday
 - Feature for sorting by pid, cid, sid, e.t.c..
 - Feature for alignment.
 - Feature for moving by pid, cid, sid, e.t.c..
 - warning when over 80 columns.
-* License
+** License
 GPL
